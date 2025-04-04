@@ -1,0 +1,35 @@
+<?php
+namespace App\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Attribute\Route;
+
+class DoctrineController extends AbstractController
+{
+    #[Route('route9')]
+    public function doctrine_test(Request $request, ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $query = $entityManager->createQuery('SELECT bar FROM foo WHERE id =' . $request->get('id')); // vuln
+        $bar = $query->execute();
+
+        return new Response(
+            sprintf("Hello %s", $request->get('name'))
+        );
+    }
+
+    #[Route('route10')]
+    public function entity_manager_test(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $query = $entityManager->createQuery('SELECT * FROM foo WHERE id =' . $request->get('id')); // vuln
+        $result1 = $query->setParameter($request->get('key'), 'value', 'type'); // vuln
+        $result2 = $query->setParameters(['key' => $request->get('key')]); // vuln
+
+        return new Response(
+            sprintf("Hello %s", $request->get('name'))
+        );
+    }
+}
