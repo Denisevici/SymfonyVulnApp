@@ -11,11 +11,11 @@ use Symfony\Component\DependencyInjection\LazyProxy\Instantiator\RealServiceInst
 
 class RealServiceInstantiatorController extends AbstractController
 {
-    #[Route("route28")]
-    public function func1()
+    #[Route("route19")]
+    public function my_func()
     {
         $instantiator = new RealServiceInstantiator();
-        $callback = jsa_test_taint();
-        $instantiator->instantiateProxy(new Container(), new Definition(), 'foo', $callback);
+        $callback = $_GET['a'];
+        $instantiator->instantiateProxy(new Container(), new Definition(), 'foo', $callback); // vuln RemoteCodeExecution
     }
 }

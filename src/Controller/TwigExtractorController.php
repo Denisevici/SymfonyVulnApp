@@ -13,7 +13,7 @@ use Twig\Loader\FilesystemLoader;
 class TwigExtractorController extends AbstractController
 {
     #[Route("route28")]
-    public function func1()
+    public function my_func()
     {
         $loader = new FilesystemLoader('/path/to/templates');
         $twig = new Environment($loader, [
@@ -22,6 +22,6 @@ class TwigExtractorController extends AbstractController
 
         $extractor = new TwigExtractor($twig);
         $catalogue = new MessageCatalogue('en');
-        $extractor->extract($_GET['resource'], $catalogue);
+        $extractor->extract($_GET['resource'], $catalogue); // vuln DeserializationOfUntrustedData(phar vector)
     }
 }

@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class DoctrineController extends AbstractController
 {
-    #[Route('route9')]
-    public function doctrine_test(Request $request, ManagerRegistry $doctrine): Response
+    #[Route('route8')]
+    public function my_func(Request $request, ManagerRegistry $doctrine): Response
     {
         $entityManager = $doctrine->getManager();
-        $query = $entityManager->createQuery('SELECT bar FROM foo WHERE id =' . $request->get('id')); // vuln
+        $query = $entityManager->createQuery('SELECT bar FROM foo WHERE id =' . $request->get('id')); // vuln SQLInjection
         $bar = $query->execute();
 
         return new Response(
@@ -21,12 +21,12 @@ class DoctrineController extends AbstractController
         );
     }
 
-    #[Route('route10')]
-    public function entity_manager_test(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('route9')]
+    public function my_func_2(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $query = $entityManager->createQuery('SELECT * FROM foo WHERE id =' . $request->get('id')); // vuln
-        $result1 = $query->setParameter($request->get('key'), 'value', 'type'); // vuln
-        $result2 = $query->setParameters(['key' => $request->get('key')]); // vuln
+        $query = $entityManager->createQuery('SELECT * FROM foo WHERE id =' . $request->get('id')); // vuln SQLInjection
+        $result1 = $query->setParameter($request->get('key'), 'value', 'type'); // vuln SQLInjection
+        $result2 = $query->setParameters(['key' => $request->get('key')]); // vuln SQLInjection
 
         return new Response(
             sprintf("Hello %s", $request->get('name'))

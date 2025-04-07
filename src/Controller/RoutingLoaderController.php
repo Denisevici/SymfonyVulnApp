@@ -13,20 +13,20 @@ use Symfony\Component\Routing\Loader\PhpFileLoader;
 
 class RoutingLoaderController extends AbstractController
 {
-    #[Route('route18')]
-    public function load_routing()
+    #[Route('route25')]
+    public function my_func()
     {
         $fileLocator = new FileLocator(array(__DIR__));
         $loader = new YamlFileLoader($fileLocator);
-        $routes = $loader->load($_GET['name']); // vuln
+        $routes = $loader->load($_GET['name']); // vuln ArbitraryFileReading + ServerSideRequestForgery + DeserializationOfUntrustedData(phar vector)
 
         $phpFileLoader = new PhpFileLoader($fileLocator);
-        $routes = $phpFileLoader->load($_GET['name']); // vuln
+        $routes = $phpFileLoader->load($_GET['name']); // vuln LocalFileInclusion + RemoteFileInclusion + DeserializationOfUntrustedData(phar vector)
 
         $annotationFileLoader = new AnnotationFileLoader($fileLocator);
-        $routes = $annotationFileLoader->load($_GET['name']); // vuln
+        $routes = $annotationFileLoader->load($_GET['name']); // vuln ArbitraryFileReading + ServerSideRequestForgery + DeserializationOfUntrustedData(phar vector)
 
         $closureLoader = new ClosureLoader();
-        $routes = $closureLoader->load($_GET['func_name']); // vuln
+        $routes = $closureLoader->load($_GET['func_name']); // vuln RemoteCodeExecution
     }
 }

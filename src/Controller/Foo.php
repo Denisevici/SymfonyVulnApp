@@ -28,6 +28,6 @@ class Foo
     }
 
     public function pvo(): void {
-        echo $this->foo; // vuln
+        echo $this->foo; // vuln CrossSiteScripting
     }
 }

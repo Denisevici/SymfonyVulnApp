@@ -9,11 +9,11 @@ use Twig\Cache\FilesystemCache;
 
 class TwigCacheFileSystemController extends AbstractController
 {
-    #[Route("route28")]
-    public function func1()
+    #[Route("route27")]
+    public function my_func()
     {
         $cache = new FilesystemCache('directory');
-        $cache->load($_GET['filepath']);
-        $cache->write($_GET['filepath'], 'test');
+        $cache->load($_GET['filepath']); // vuln LocalFileInclusion + RemoteFileInclusion
+        $cache->write($_GET['filepath'], 'test'); // vuln ArbitraryFileCreation
     }
 }

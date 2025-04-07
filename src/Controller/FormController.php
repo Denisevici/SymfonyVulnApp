@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class FormController extends AbstractController
 {
     #[Route('route11')]
-    public function form_builder_test(Request $request): Response
+    public function my_func(Request $request): Response
     {
         // creates a foo object and initializes some data for this example
         $foo = new Foo();
@@ -32,7 +32,7 @@ class FormController extends AbstractController
     }
 
     #[Route('route12')]
-    public function form_test(Request $request): Response
+    public function my_func_2(Request $request): Response
     {
         // creates a foo object and initializes some data for this example
         $foo = new Foo();

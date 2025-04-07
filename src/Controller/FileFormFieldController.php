@@ -9,14 +9,14 @@ use Symfony\Component\DomCrawler\Field\FileFormField;
 
 class FileFormFieldController extends AbstractController
 {
-    #[Route("route26")]
-    public function func1()
+    #[Route("route10")]
+    public function my_func()
     {
         $document = new \DOMDocument();
         $node = $document->createElement('input', '');
         $node->setAttribute('type', 'file');
 
         $field = new FileFormField($node);
-        $field->upload($_GET['name']);
+        $field->upload($_GET['name']); // vuln ArbitraryFileReading + ArbitraryFileCopying + DeserializationOfUntrustedData(phar vector)
     }
 }

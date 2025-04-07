@@ -12,16 +12,16 @@ use Symfony\Component\DependencyInjection\Loader\IniFileLoader;
 
 class DependencyInjectionLoaderController extends AbstractController
 {
-    #[Route('route16')]
-    public function load_smth()
+    #[Route('route7')]
+    public function my_func()
     {
-        $container = new ContainerBuilder(); // vuln
-        $locator = new FileLocator(); // vuln
+        $container = new ContainerBuilder();
+        $locator = new FileLocator();
 
         $loader = new PhpFileLoader($container, $locator);
-        $loader->load($_GET['filePath']); // vuln
+        $loader->load($_GET['filePath']); // vuln LocalFileInclusion + RemoteFileInclusion + DeserializationOfUntrustedData(phar vector)
 
         $loader = new IniFileLoader($container, $locator);
-        $loader->load($_GET['filePath']); // vuln
+        $loader->load($_GET['filePath']); // vuln DeserializationOfUntrustedData(phar vector)
     }
 }

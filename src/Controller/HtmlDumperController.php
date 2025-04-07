@@ -9,9 +9,9 @@ use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 class HtmlDumperController extends AbstractController
 {
-    #[Route("route26")]
-    public function func1()
+    #[Route("route13")]
+    public function my_func()
     {
-        $output = new HtmlDumper($_GET['output']);
+        $output = new HtmlDumper($_GET['output']); // vuln ArbitraryFileModification + ArbitraryFileCreation + DeserializationOfUntrustedData(phar vector)
     }
 }

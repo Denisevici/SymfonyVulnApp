@@ -9,11 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UploadedFileController extends AbstractController
 {
-    #[Route('route14')]
-    public function upload_file(Request $request): Response
+    #[Route('route29')]
+    public function my_func(Request $request): Response
     {
         $file = $request->files->get('file');
-        $file->move($_GET['dirName'], $_GET['fileName']); // vuln
+        $file->move($_GET['dirName'], $_GET['fileName']); // vuln ArbitraryFileCreation + ArbitraryFileModification + UnrestrictedFileUpload
+        echo $file->originalName; // vuln CrossSiteScripting
 
         return new Response(
             sprintf("Hello %s", $request->get('name'))

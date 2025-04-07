@@ -10,12 +10,11 @@ use Symfony\Component\ClassLoader\ClassCollectionLoader;
 
 class ClassLoaderController extends AbstractController
 {
-    #[Route('route15')]
-    public function load_class()
+    #[Route('route4')]
+    public function my_func()
     {
-        ClassMapGenerator::createMap($_GET['directory']); // vuln
-        ClassMapGenerator::dump($_GET['directory'], $_GET['file']); // vuln
-        ClassCollectionLoader::load(['class'], $_GET['directory'], 'foo', false); // vuln
-        ClassCollectionLoader::load(['class'], $_GET['directory'], $_GET['name'], false); // vuln
+        ClassMapGenerator::createMap($_GET['directory']); // vuln ArbitraryFileReading + ServerSideRequestForgery + DeserializationOfUntrustedData(phar vector)
+        ClassMapGenerator::dump($_GET['directory'], $_GET['file']); // vuln ArbitraryFileReading + ServerSideRequestForgery + DeserializationOfUntrustedData(phar vector) + ArbitraryFileCreation + ArbitraryFileModification
+        ClassCollectionLoader::load(['class'], $_GET['directory'], $_GET['name'], false); // vuln ArbitraryFileReading + ArbitraryFileCreation + DeserializationOfUntrustedData(x2: with "Exception" in vector, another with "phar" in vector) + LocalFileInclusion + RemoteFileInclusion + ServerSideRequestForgery
     }
 }

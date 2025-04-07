@@ -9,9 +9,9 @@ use Symfony\Component\Serializer\Mapping\Loader\FileLoader;
 
 class SerializerLoaderController extends AbstractController
 {
-    #[Route('route19')]
-    public function load_serializer()
+    #[Route('route26')]
+    public function my_func()
     {
-        $loader = new FileLoader($_GET['filePath']); // vuln
+        $loader = new FileLoader($_GET['filePath']); // vuln DeserializationOfUntrustedData(phar vector)
     }
 }

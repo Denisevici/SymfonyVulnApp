@@ -9,8 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Command\CacheClearCommand;
 
 class CacheClearCommandController extends AbstractController
 {
-    #[Route("route23")]
-    public function func1()
+    #[Route("route3")]
+    public function my_func()
     {
         $testClass = new TestClass();
         $testClass->foo($_GET['warmupDir'], 'realCacheDir');
@@ -21,6 +21,6 @@ class TestClass extends CacheClearCommand
 {
     public function foo($warmupDir, $realCacheDir, $enableOptionalWarmers = true)
     {
-        $this->warmup($warmupDir, $realCacheDir); // vuln
+        $this->warmup($warmupDir, $realCacheDir); // vuln ArbitraryFileCreation + ArbitraryFileModification + LocalFileInclusion + RemoteFileInclusion
     }
 }

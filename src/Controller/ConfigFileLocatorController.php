@@ -9,10 +9,10 @@ use Symfony\Component\Config\FileLocator;
 
 class ConfigFileLocatorController extends AbstractController
 {
-    #[Route("route24")]
-    public function func1()
+    #[Route("route5")]
+    public function my_func()
     {
         $loader = new FileLocator('directory');
-        $loader->locate($_GET['file']); // vuln
+        $loader->locate($_GET['file']); // vuln DeserializationOfUntrustedData(phar vector)
     }
 }

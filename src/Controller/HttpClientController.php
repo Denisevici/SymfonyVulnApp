@@ -8,10 +8,10 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class HttpClientController extends AbstractController
 {
-    #[Route('route13')]
-    public function client_request()
+    #[Route('route16')]
+    public function my_func()
     {
         $client = HttpClient::create();
-        $request = $client->request('GET', $_GET['url']); // vuln
+        $request = $client->request('GET', $_GET['url']); // vuln ServerSideRequestForgery
     }
 }

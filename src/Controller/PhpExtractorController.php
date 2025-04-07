@@ -9,12 +9,12 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Translation\PhpExtractor;
 use Symfony\Component\Translation\MessageCatalogue;
 
-class phpExtractorController extends AbstractController
+class PhpExtractorController extends AbstractController
 {
-    #[Route("route28")]
-    public function func1()
+    #[Route("route18")]
+    public function my_func()
     {
         $extractor = new PhpExtractor();
-        $extractor->extract($_GET['resource'], new MessageCatalogue('en'));
+        $extractor->extract($_GET['resource'], new MessageCatalogue('en')); // vuln DeserializationOfUntrustedData(phar vector)
     }
 }

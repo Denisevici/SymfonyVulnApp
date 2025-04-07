@@ -9,9 +9,9 @@ use Symfony\Component\Config\Util\XmlUtils;
 
 class ConfigXmlUtilsController extends AbstractController
 {
-    #[Route("route25")]
-    public function func1()
+    #[Route("route6")]
+    public function my_func()
     {
-        XmlUtils::loadFile($_GET['file']);
+        XmlUtils::loadFile($_GET['file']); // vuln ArbitraryFileReading + ServerSideRequestForgery + DeserializationOfUntrustedData(phar vector)
     }
 }

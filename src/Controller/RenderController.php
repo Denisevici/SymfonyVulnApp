@@ -9,33 +9,33 @@ use Twig\Environment;
 
 class RenderController extends AbstractController
 {
-    #[Route("route4")]
-    public function render_test(Request $request): Response
+    #[Route("route20")]
+    public function my_func(Request $request): Response
     {
-        return $this->render('lucky/number.html.twig', ['number' => $request->get('number')]); // vuln
+        return $this->render('lucky/number.html.twig', ['number' => $request->get('number')]); // vuln CrossSiteScripting
     }
 
-    #[Route("route5")]
-    public function render_view_test(Request $request): Response
+    #[Route("route21")]
+    public function my_func_1(Request $request): Response
     {
-        return $this->renderView('lucky/number.html.twig', ['number' => $request->get('number')]); //vuln
+        return $this->renderView('lucky/number.html.twig', ['number' => $request->get('number')]); //vuln CrossSiteScripting
     }
 
-    #[Route("route6")]
-    public function render_block_test(Request $request): Response
+    #[Route("route22")]
+    public function my_func_2(Request $request): Response
     {
-        return $this->renderBlock('lucky/number.html.twig', 'block', ['number' => $request->get('number')]); //vuln
+        return $this->renderBlock('lucky/number.html.twig', 'block', ['number' => $request->get('number')]); //vuln CrossSiteScripting
     }
 
-    #[Route("route7")]
-    public function render_block_view_test(Request $request): Response
+    #[Route("route23")]
+    public function my_func_3(Request $request): Response
     {
-        return $this->renderBlockView('lucky/number.html.twig', 'block', ['number' => $request->get('number')]); //vuln
+        return $this->renderBlockView('lucky/number.html.twig', 'block', ['number' => $request->get('number')]); //vuln CrossSiteScripting
     }
 
-    #[Route("route8")]
-    public function twig_environment_render_test(Request $request, Environment $twig): Response
+    #[Route("route24")]
+    public function my_func_4(Request $request, Environment $twig): Response
     {
-        return $twig->render('lucky/number.html.twig', ['number' => $request->get('number')]); // vuln
+        return $twig->render('lucky/number.html.twig', ['number' => $request->get('number')]); // vuln CrossSiteScripting
     }
 }
